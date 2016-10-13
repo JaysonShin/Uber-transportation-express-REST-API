@@ -26,7 +26,7 @@ router.route('/paymentaccounts')
         PaymentAccount.find(function(err, cars){
             if(err){
                 res.status(500).send({
-                    "errorCode": 5001,
+                    "errorCode": 2004,
                     "errorMsg": "no paymentaccount data",
                     "statusCode": 500,
                     "statusTxt": 'Mongoose Database Error'
@@ -145,7 +145,7 @@ router.route('/paymentaccounts/:paymentaccount_id')
         PaymentAccount.findById(req.params.paymentaccount_id, function(err, paymentaccount){
             if(err){
                 res.status(500).send({
-                    "errorCode": 5001,
+                    "errorCode": 3004,
                     "errorMsg": 'Given paymentaccount does not exist',
                     "statusCode": 500,
                     "statusTxt": 'Mongoose Database Error'
@@ -175,7 +175,7 @@ router.route('/paymentaccounts/:paymentaccount_id')
         PaymentAccount.findById(req.params.paymentaccount_id, function(err, paymentaccount){
             if(err){
                 res.status(500).send({
-                    "errorCode": 5001,
+                    "errorCode": 3004,
                     "errorMsg": 'Given paymentaccount does not exist',
                     "statusCode": 500,
                     "statusTxt": 'Mongoose Database Error'
@@ -280,7 +280,7 @@ router.route('/paymentaccounts/:paymentaccount_id')
         }, function(err, paymentaccount){
             if(err){
                 res.status(500).send({
-                    "errorCode": 5001,
+                    "errorCode": 3004,
                     "errorMsg": 'Given paymentaccount does not exist',
                     "statusCode": 500,
                     "statusTxt": 'Mongoose Database Error'

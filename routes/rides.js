@@ -27,7 +27,7 @@ router.route('/rides')
         Ride.find(function(err, cars){
             if(err){
                 res.status(500).send({
-                    "errorCode": 4001,
+                    "errorCode": 2005,
                     "errorMsg": "no ride data",
                     "statusCode": 500,
                     "statusTxt": 'Mongoose Database Error'
@@ -151,7 +151,7 @@ router.route('/rides/:ride_id')
         Ride.findById(req.params.ride_id, function(err, car){
             if(err){
                 res.status(500).send({
-                    "errorCode": 3001,
+                    "errorCode": 3005,
                     "errorMsg": 'Given ride does not exist',
                     "statusCode": 500,
                     "statusTxt": 'Mongoose Database Error'
@@ -181,7 +181,7 @@ router.route('/rides/:ride_id')
         Ride.findById(req.params.ride_id, function(err, ride){
             if(err){
                 res.status(500).send({
-                    "errorCode": 4001,
+                    "errorCode": 3005,
                     "errorMsg": 'Given ride does not exist',
                     "statusCode": 500,
                     "statusTxt": 'Mongoose Database Error'
@@ -266,7 +266,7 @@ router.route('/rides/:ride_id')
         }, function(err, car){
             if(err){
                 res.status(500).send({
-                    "errorCode": 4001,
+                    "errorCode": 3005,
                     "errorMsg": 'Given ride does not exist',
                     "statusCode": 500,
                     "statusTxt": 'Mongoose Database Error'
@@ -284,7 +284,7 @@ router.route('/rides/:ride_id')
             if(err){
                 res.status(500).send({
                    "statusCode" : 500,
-                    "errorCode" : 1012,
+                    "errorCode" : 3005,
                     "errorMsg" : 'Given ride does not exist',
                 });
             }else{
@@ -307,7 +307,7 @@ router.route('/rides/:ride_id')
             if(err){
                 res.status(500).send({
                     "statusCode" : 500,
-                    "errorCode" : 1010,
+                    "errorCode" : 3005,
                     "errorMsg" : 'Given Ride does not exist',                    
                 });
             }else{
@@ -321,7 +321,7 @@ router.route('/rides/:ride_id')
             if(err){
                 res.status(500).send({
                     "statusCode" : 500,
-                    "errorCode" : 1010,
+                    "errorCode" : 3005,
                     "errorMsg" : 'Given Ride does not exist',                    
                 });
             }else{

@@ -19,9 +19,7 @@ router.route('/cars')
      * @throws Mongoose Database Error (500 Status Code)
      */
     .get(function(req, res){
-        /**
-         * Add extra error handling rules here
-         */
+        
         Car.find(function(err, cars){
             if(err){
                 res.status(500).send({
@@ -30,9 +28,7 @@ router.route('/cars')
                     "statusCode": 500,
                     "statusTxt": 'Mongoose Database Error'
                 });
-                /**
-                 * Wrap this error into a more comprehensive message for the end-user
-                 */
+                //not find car data error handling
             }else{
                 res.json(cars);
             }
@@ -51,11 +47,8 @@ router.route('/cars')
         if (typeof req.body.make === "undefined" || req.body.make.length > 18) {
             res.sendStatus(400);
             return;
-
         }
-        /**
-         * Add aditional error handling here
-         */
+        
 
         var car = new Car();
         car.license = req.body.license;
@@ -79,31 +72,31 @@ router.route('/cars')
                             errorInfo = {
                                 errorCode: dictError[errorType],
                                 errorMessage: err.errors[key].message
-                            }
+                            }//error handling for required
                         }
                         else if (errorType === "maxlength") {
                             errorInfo = {
                                 errorCode: dictError[errorType],
                                 errorMessage: err.errors[key].message
-                            }
+                            }//error handling for maxlength
                         }
                         else if (errorType === "minlength") {
                             errorInfo = {
                                 errorCode: dictError[errorType],
                                 errorMessage: err.errors[key].message
-                            }
+                            }//error handling for minlength
                         }
                         else if (errorType === "type") {
                             errorInfo = {
                                 errorCode: dictError[errorType],
                                 errorMessage: err.errors[key].message
-                            }
+                            }//error handling for type
                         }
                         else if (errorType === "validate") {
                             errorInfo = {
                                 errorCode: dictError[errorType],
                                 errorMessage: err.errors[key].message
-                            }
+                            }//error handling for validate message
                         }
                     }
                 }
@@ -112,7 +105,7 @@ router.route('/cars')
                     "errorMsg": "Invalid value in driver",
                     "statusCode": 500,
                     "statusTxt": 'Mongoose Database Error'
-                });
+                });//error handling for invalid value
             }else{
                 res.status(201).json(car);
             }
@@ -130,9 +123,7 @@ router.route('/cars/:car_id')
      * @throws Mongoose Database Error (500 Status Code)
      */
     .get(function(req, res){
-        /**
-         * Add extra error handling rules here
-         */
+        
         if (!mongoose.Types.ObjectId.isValid(req.params.car_id)) {
             res.status(404).send({errorCode: 4000});
             return;
@@ -145,7 +136,7 @@ router.route('/cars/:car_id')
                     "errorMsg": 'Given car does not exist',
                     "statusCode": 500,
                     "statusTxt": 'Mongoose Database Error'
-                });
+                });//error handling for not finding car data
             }else{
                 if (!car)
                     res.sendStatus(404);
@@ -164,9 +155,6 @@ router.route('/cars/:car_id')
      * @throws Mongoose Database Error (500 Status Code)
      */
     .patch(function(req, res){
-        /**
-         * Add extra error handling rules here
-         */
 
         Car.findById(req.params.car_id, function(err, car){
             if(err){
@@ -175,27 +163,8 @@ router.route('/cars/:car_id')
                     "errorMsg": 'Given car does not exist',
                     "statusCode": 500,
                     "statusTxt": 'Mongoose Database Error'
-                });
-            }else{
-                // for(var key in req.body) {
-                //     if(req.body.hasOwnProperty(key)){
-                //         if(key == 'license'){
-                //             /**
-                //              * Add extra error handling rules here
-                //              */
-                //             car.license = req.body.license;
-                //         }
-                //         if(key == 'doorCount'){
-                //             /**
-                //              * Add extra error handling rules here
-                //              */
-                //             car.doorCount = req.body.doorCount;
-                //         }
-                //         /**
-                //          * Repeat for the other properties
-                //          */
-                //     }
-                // }
+                });//error handling for not finding car data
+            }else{ 
                 car.license = req.body.license;
                 car.save(function (err) {
                     if (err) {

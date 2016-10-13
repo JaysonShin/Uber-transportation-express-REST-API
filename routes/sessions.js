@@ -17,7 +17,7 @@ router.route('/sessions')
         /* Store name and pwd in database, BEGAN */
         const usernameDB = "john";
         const clearPasswordDB = "12315"; 
-        const hashPasswordDB = CryptoJS.HmacSHA1(clearPasswordDB,"psw").toString();
+        const hashPasswordDB = CryptoJS.HmacSHA1(clearPasswordDB,"psw").toString();//psw is a key
         /* Store name and pwd in database, END */
 
         // If no name in request body
@@ -25,11 +25,12 @@ router.route('/sessions')
             res.status(400).json({
                 "errorCode": 1008, // Missing Name when asking for token
                 "errorMsg": "Missing username when ask for token",
-                "statusCode": 404,
+                "statusCode": 400,
                 "statusTxt": "Bad Request"
             }).end();
             return;
         }
+
         // If no password given
         if(req.body.password === undefined) {
             res.status(400).json({
@@ -40,24 +41,26 @@ router.route('/sessions')
             }).end();
             return;
         }
-        // If username does not match
+
+        // If provided username does not match with username in Database
         if(req.body.username !== usernameDB) {
             res.status(404).json({
                 "errorCode": 1010, // username does not match
                 "errorMsg": "Username does not match",
                 "statusCode": 404,
-                "statusTxt": "Bad Request"
+                "statusTxt": "Not Found"
             }).end();
             return;
         }
-        // If password does not match
+
+        // If provided password does not match with password in Database
         var hashPassword = CryptoJS.HmacSHA1(req.body.password, "pw").toString();
         if(hashPassword !== hashPasswordDB) {
             res.status(404).json({
                 "errorCode": 1011, // password does not match
                 "errorMsg": "Password does not match",
                 "statusCode": 404,
-                "statusTxt": "Bad Request"
+                "statusTxt": "Not Found"
             }).end();
             return;
         }

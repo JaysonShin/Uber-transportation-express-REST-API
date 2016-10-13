@@ -39,7 +39,7 @@ app.use(function (req, res, next) {
   if (req.url != '/sessions') {
     if (headers.token === 'undefined') {
       res.status(404).json({
-        'errorCode': '1011',
+        'errorCode': '1007',
         'errorMessage': 'Missing token',
         'statusCode': '404'
       });
