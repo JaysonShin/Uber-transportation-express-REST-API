@@ -14,11 +14,11 @@ var base64=require("js-base64").Base64;
 
 router.route('/sessions')
     .post(function(req, res){
-        /* Kept in database, start */
+        /* Store name and pwd in database, BEGAN */
         const usernameDB = "john";
         const clearPasswordDB = "12315"; 
-        const hashPasswordDB = CryptoJS.HmacSHA1(clearPasswordDB,"pw").toString();
-        /* Kept in database, end */
+        const hashPasswordDB = CryptoJS.HmacSHA1(clearPasswordDB,"psw").toString();
+        /* Store name and pwd in database, END */
 
         // If no name in request body
         if(req.body.username == undefined) {
@@ -64,10 +64,10 @@ router.route('/sessions')
         
         var username = req.body.username;
         var password = req.body.password;
-
+        // define expiration time
         expiration = (parseInt(Date.now()/1000) + 3600);
         
-        // encryption
+        // encryption process
         clearString = username+":"+expiration;
         hashString = CryptoJS.HmacSHA1(clearString,"APP");
         cryptString = CryptoJS.AES.encrypt(clearString+":"+hashString,"Secret").toString(); //
